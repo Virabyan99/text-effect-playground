@@ -15,18 +15,28 @@ const effectOptions = ['Micro Glide Effect', 'Micro Text Weight Shift', 'Soft Fo
 type EffectOption = typeof effectOptions[number];
 
 export const EffectMenu = () => {
-  // Use undefined instead of '' for no selection, aligning with the placeholder
   const [selectedEffect, setSelectedEffect] = useState<EffectOption | undefined>(undefined);
+
+  // Custom handler to map "none" to undefined and cast other values to EffectOption
+  const handleValueChange = (value: string) => {
+    if (value === 'none') {
+      setSelectedEffect(undefined);
+    } else {
+      setSelectedEffect(value as EffectOption); // Safe because SelectItems limit possible values
+    }
+  };
 
   return (
     <div className="mb-4">
       <label className="block mb-2 text-lg font-medium">Select Text Effect:</label>
-      <Select value={selectedEffect} onValueChange={setSelectedEffect}>
+      <Select
+        value={selectedEffect ?? ''} // Use empty string when undefined to show placeholder
+        onValueChange={handleValueChange}
+      >
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select an effect" />
         </SelectTrigger>
         <SelectContent>
-          {/* Use a non-empty string like "none" for the "None" option */}
           <SelectItem value="none">None</SelectItem>
           {effectOptions.map((effect) => (
             <SelectItem key={effect} value={effect}>
