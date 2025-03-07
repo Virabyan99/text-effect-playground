@@ -1,7 +1,7 @@
-// src/lib/indexedDB.ts
+// src/lib/indexedDB.ts (if still used, update)
 import { openDB } from 'idb';
 
-const DB_NAME = 'TextEffectPlayground';
+const DB_NAME = 'text-effect-playground';
 const STORE_NAME = 'EffectsStore';
 
 export const initDB = async () => {
